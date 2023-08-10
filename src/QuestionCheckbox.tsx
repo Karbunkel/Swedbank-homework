@@ -5,7 +5,7 @@ const QuestionCheckbox = ({
   tooltiptext,
 }: {
   option: string;
-  onAnswerChange: (answer: string) => void;
+  onAnswerChange: (answer: boolean) => void;
   isChecked?: boolean;
   tooltiptext: string;
 }) => {
@@ -14,10 +14,9 @@ const QuestionCheckbox = ({
       <label className='formQuestion'>
         <input
           checked={isChecked}
-          onChange={(e) => onAnswerChange(e.target.value)}
+          onChange={() => onAnswerChange(!isChecked)}
           className='checkbox'
           type='checkbox'
-          required
         />
         {option}
       </label>

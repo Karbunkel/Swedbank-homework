@@ -4,7 +4,6 @@ interface FooterButtonsProps {
   nextClickListener: () => void;
   backClickListener: () => void;
   submitClickListener: any;
-  isCurrentQuestionAnswered: boolean;
 }
 
 const FooterButtons = ({
@@ -13,19 +12,9 @@ const FooterButtons = ({
   nextClickListener,
   backClickListener,
   submitClickListener,
-  isCurrentQuestionAnswered,
 }: FooterButtonsProps) => {
   const isLastQuestion = () => {
     return questionToShow === questionsLength - 1;
-  };
-
-  const handleNextClick = () => {
-    if (!isCurrentQuestionAnswered) {
-      alert('Please answer the question before proceeding.');
-      return;
-    }
-
-    nextClickListener();
   };
 
   return (
@@ -38,19 +27,11 @@ const FooterButtons = ({
         ''
       )}
       {isLastQuestion() ? (
-        <button
-          className='btn nextBtn'
-          onClick={submitClickListener}
-          disabled={!isCurrentQuestionAnswered}
-        >
+        <button className='btn nextBtn' onClick={submitClickListener}>
           Submit
         </button>
       ) : (
-        <button
-          className='btn nextBtn'
-          onClick={handleNextClick}
-          //disabled={!isCurrentQuestionAnswered}
-        >
+        <button className='btn nextBtn' onClick={nextClickListener}>
           Next
         </button>
       )}

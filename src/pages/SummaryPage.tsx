@@ -6,20 +6,28 @@ const SummaryPage = () => {
     localStorage.getItem('Form Answers') ?? ''
   );
 
+  const getAnswerValue = (value: any): string => {
+    if (typeof value === 'boolean') {
+      return value ? 'Yes' : 'No';
+    }
+    return value;
+  };
+
   return (
-    <div>
+    <div className='container'>
       <h1 className='title'>Small loan application</h1>
       <p className='introList'>
         We have received all your provided information, you can review it below.
       </p>
       <div className='summaryTable'>
-        {' '}
-        <h3>Summary</h3>
+        <h3 className='summaryTableTitle'>Summary</h3>
         {questions.map((question, index) => {
           return (
-            <div>
-              {question.name}
-              <div>{submittedAnswers[index]}</div>
+            <div className='summaryTableRow' key={index}>
+              <div className='summaryTableQuestion'>{question.name}</div>
+              <div className='summaryTableAnswer'>
+                {getAnswerValue(submittedAnswers[index])}
+              </div>
             </div>
           );
         })}

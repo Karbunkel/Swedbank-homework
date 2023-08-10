@@ -1,19 +1,14 @@
 [
   {
-    "name": "Loan amount",
-    "type": "text",
+    "name": "Loan amount (EUR)",
+    "type": "number",
     "options": null
   },
 
   {
-    "name": "What is your monthly net income after taxes in euros?",
-    "type": "text",
-    "options": null
-  },
-  {
     "name": "Do you have obligations outside Swedbank?",
     "type": "radio",
-    "options": ["yes", "no"]
+    "options": ["Yes", "No"]
   },
   {
     "name": "What is you preferred repayment date?",
@@ -56,5 +51,10 @@
     "type": "checkbox",
     "tooltiptext": "Swedbank may make an automated decision for the financing product you are applying for by processing your personal data based on this application. In addition for data provided in this application, Swedbank will assess your creditworthiness and indebtedness by processing data from external registers. You have the right to contest the automated decision via Internet Banking or phone. In such case, the decision will be reviewed by a Swedbank employee.",
     "options": "I agree to terms and conditions"
+  },
+  {
+    "name": "Additional information",
+    "type": "text",
+    "options": null
   }
 ]

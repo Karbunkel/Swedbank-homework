@@ -6,7 +6,8 @@ import FooterButtons from '../FooterButtons';
 import QuestionSelect from '../QuestionSelect';
 import { useNavigate } from 'react-router-dom';
 import questions from './../FormQuestions.json';
-import Alert from '../Alert';
+import ErrorMessage from '../ErrorMessage';
+import QuestionNumberInput from '../components/QuestionNumberInput';
 
 const FormPage = () => {
   const [formAnswers, setFormAnswers] = useState<
@@ -24,6 +25,7 @@ const FormPage = () => {
   const navigate = useNavigate();
 
   const onAnswerChange = (answer: any) => {
+    console.log('onAnswerChange', answer, questionToShow);
     if (questionToShow + 1 > formAnswers.length) {
       setFormAnswers([...formAnswers, answer]);
     } else
@@ -50,6 +52,7 @@ const FormPage = () => {
       return;
     }
     setQuestionToShow(questionToShow + 1);
+    setShowAlert(false);
   };
 
   const handleBackClick = () => {
@@ -57,6 +60,10 @@ const FormPage = () => {
   };
 
   const handleSubmitClick = () => {
+    if (isError) {
+      setShowAlert(true);
+      return;
+    }
     navigate('/summary');
   };
 
@@ -64,14 +71,17 @@ const FormPage = () => {
     onAnswerChange(value);
   };
 
-  console.log('error', showAlert);
-
   return (
     <div className='container'>
       <h1 className='title'>Small loan application</h1>
       <p>All questions are mandatory to answer</p>
       <h3 className='formQuestion'>{currentQuestion.name}</h3>
-      {currentQuestion.type === 'text' ? (
+      {currentQuestion.type === 'number' ? (
+        <QuestionNumberInput
+          onAnswerChange={onAnswerChange}
+          value={formAnswers[questionToShow] as string}
+        />
+      ) : currentQuestion.type === 'text' ? (
         <QuestionTextArea
           onAnswerChange={onAnswerChange}
           value={formAnswers[questionToShow] as string}
@@ -80,11 +90,13 @@ const FormPage = () => {
         <QuestionRadio
           onAnswerChange={onAnswerChange}
           values={currentQuestion.options as Array<string>}
+          selectedValue={formAnswers[questionToShow] as string}
         />
       ) : currentQuestion.type === 'select' ? (
         <QuestionSelect
           options={currentQuestion.options as Array<string>}
           onSelect={handleSelect}
+          selectedValue={formAnswers[questionToShow] as string}
           tooltiptext={currentQuestion.tooltiptext as string}
         />
       ) : currentQuestion.type === 'checkbox' ? (
@@ -95,7 +107,11 @@ const FormPage = () => {
           tooltiptext={currentQuestion.tooltiptext as string}
         />
       ) : null}
-      {showAlert == true ? <Alert /> : ''}
+      {showAlert ? (
+        <ErrorMessage errorText='Please answer the question before procceeding' />
+      ) : (
+        ''
+      )}
 
       <FooterButtons
         questionToShow={questionToShow}
@@ -103,7 +119,6 @@ const FormPage = () => {
         nextClickListener={handleNextClick}
         backClickListener={handleBackClick}
         submitClickListener={handleSubmitClick}
-        isCurrentQuestionAnswered={isCurrentQuestionAnswered}
       />
     </div>
   );

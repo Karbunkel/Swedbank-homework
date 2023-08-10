@@ -1,4 +1,4 @@
-const QuestionTextArea = ({
+const QuestionNumberInput = ({
   value = '',
   onAnswerChange,
 }: {
@@ -7,15 +7,14 @@ const QuestionTextArea = ({
 }) => {
   return (
     <>
-      <textarea
+      <input
         value={value}
-        className='textArea'
+        className='numberInput'
+        type='number'
         onChange={(e) => onAnswerChange(e.target.value)}
-        cols={50}
-        maxLength={500}
       />
     </>
   );
 };
 
-export default QuestionTextArea;
+export default QuestionNumberInput;

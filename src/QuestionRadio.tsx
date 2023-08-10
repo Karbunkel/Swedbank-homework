@@ -1,26 +1,26 @@
 const QuestionRadio = ({
   values,
   onAnswerChange,
+  selectedValue,
 }: {
   values: Array<string>;
   onAnswerChange: (answer: string) => void;
+  selectedValue: string;
 }) => {
   return (
     <>
       {values.map((value) => {
         return (
-          <form>
-            <label className='formQuestion' key={value}>
-              <input
-                type='radio'
-                name='otherResp'
-                value={value}
-                onChange={(e) => onAnswerChange(e.target.value)}
-                required
-              />
-              {value}
-            </label>
-          </form>
+          <label className='formQuestion radioOption' key={value}>
+            <input
+              type='radio'
+              name='otherResp'
+              value={value}
+              checked={selectedValue === value}
+              onChange={(e) => onAnswerChange(e.target.value)}
+            />
+            {value}
+          </label>
         );
       })}
     </>
