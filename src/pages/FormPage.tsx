@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import QuestionTextArea from '../QuestionTextArea';
-import QuestionRadio from '../QuestionRadio';
-import QuestionCheckbox from '../QuestionCheckbox';
-import FooterButtons from '../FooterButtons';
-import QuestionSelect from '../QuestionSelect';
+import QuestionTextArea from '../components/QuestionTextArea';
+import QuestionRadio from '../components/QuestionRadio';
+import QuestionCheckbox from '../components/QuestionCheckbox';
+import FooterButtons from '../components/FooterButtons';
+import QuestionSelect from '../components/QuestionSelect';
 import { useNavigate } from 'react-router-dom';
 import questions from './../FormQuestions.json';
-import ErrorMessage from '../ErrorMessage';
+import ErrorMessage from '../components/ErrorMessage';
 import QuestionNumberInput from '../components/QuestionNumberInput';
+import './../styles.css';
 
 const FormPage = () => {
   const [formAnswers, setFormAnswers] = useState<
@@ -25,7 +26,6 @@ const FormPage = () => {
   const navigate = useNavigate();
 
   const onAnswerChange = (answer: any) => {
-    console.log('onAnswerChange', answer, questionToShow);
     if (questionToShow + 1 > formAnswers.length) {
       setFormAnswers([...formAnswers, answer]);
     } else

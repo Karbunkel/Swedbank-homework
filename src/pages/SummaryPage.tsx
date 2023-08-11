@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import questions from './../FormQuestions.json';
+import './../styles.css';
 
 const SummaryPage = () => {
   const submittedAnswers: Array<any> = JSON.parse(
@@ -32,7 +33,7 @@ const SummaryPage = () => {
           );
         })}
       </div>
-      <Link to='/landing'>
+      <Link to='/'>
         <button className='btn'>Start again</button>
       </Link>
     </div>
